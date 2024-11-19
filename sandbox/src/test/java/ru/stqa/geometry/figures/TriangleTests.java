@@ -30,4 +30,24 @@ public class TriangleTests {
         var t2 = new Triangle(5.0,3.0, 4.0);
         Assertions.assertEquals(t1, t2);
     }
+
+    @Test
+    void cannotCreateTriangleWithNegativeSide() {
+        try{
+            new Triangle(-5.0, 3.0, 4.0);
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+            // OK
+        }
+    }
+
+    @Test
+    void cannotCreateTriangleWhereTheSumOfTwoSideLessThanThirdSide() {
+        try{
+            new Triangle(1.0, 2.0, 4.0);
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+            // OK
+        }
+    }
 }
