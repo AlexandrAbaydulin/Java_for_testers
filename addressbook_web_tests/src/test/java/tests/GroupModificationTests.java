@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class GroupModificationTests extends TestBase {
 
+    // Изменение имени группы
     @Test
     void canModifyGroup() {
         if (!app.groups().isGroupPresent()) {
