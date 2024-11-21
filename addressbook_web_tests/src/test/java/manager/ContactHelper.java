@@ -4,6 +4,9 @@ import model.ContactData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ContactHelper extends HelperBase {
 
     public ContactHelper(ApplicationManager manager) {
@@ -42,7 +45,11 @@ public class ContactHelper extends HelperBase {
         dropdown.findElement(By.xpath("//option[. = '" + text + "']")).click();
     }
 
-    public void removeContact() {
+    public boolean isContactPresent() {
+        return manager.isElementPresent(By.name("selected[]"));
+    }
+
+    public void removeContact(ContactData contactData) {
         selectContact();
         removeSelectedContacts();
         returnToContactPage();
@@ -57,7 +64,7 @@ public class ContactHelper extends HelperBase {
     }
 
     private void removeSelectedContacts() {
-        click(By.xpath("//input[@value=\'Delete\']"));
+        click(By.cssSelector(".left:nth-child(8) > input"));
     }
 
     private void returnToContactPage() {
@@ -68,5 +75,40 @@ public class ContactHelper extends HelperBase {
         click(By.name("selected[]"));
     }
 
+    public void removeAllContact() {
+        selectAllContact();
+        removeSelectedContacts();
+        returnToContactPage();
+    }
+
+    private void selectAllContact() {
+        var checkboxes = manager.driver.findElements(By.name("selected[]"));
+
+        for (var checkbox : checkboxes) {
+            checkbox.click();
+        }
+    }
+
+    public int getCount() {
+        return manager.driver.findElements(By.name("selected[]")).size();
+    }
+
+    public List<ContactData> getList() {
+        var contacts = new ArrayList<ContactData>();
+        var main_locators = manager.driver.findElements(By.cssSelector("tr:not(:first-child)"));
+
+        for (var locator : main_locators) {
+            var lastname = locator.findElement(By.cssSelector("td:nth-child(2)")).getText();
+            var firstname =  locator.findElement(By.cssSelector("td:nth-child(3)")).getText();
+            var checkbox_locator = locator.findElement(By.name("selected[]"));
+            var id = checkbox_locator.getAttribute("value");
+
+            contacts.add(new ContactData()
+                    .withFirstname(firstname)
+                    .withLastname(lastname));
+        }
+
+        return contacts;
+    }
 
 }
