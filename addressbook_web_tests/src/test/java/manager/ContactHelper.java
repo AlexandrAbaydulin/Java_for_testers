@@ -17,14 +17,6 @@ public class ContactHelper extends HelperBase {
         returnToContactPage();
     }
 
-    public void modifyContact(ContactData contact, ContactData modifiedContact, int index) {
-        selectContact(contact);
-        initContactModification(index);
-        fillContactForm(modifiedContact);
-        submitContactModification();
-        returnToContactPage();
-    }
-
     private void fillContactForm(ContactData contact) {
         type(By.name("firstname"), contact.firstname());
         type(By.name("middlename"), contact.middlename());
@@ -50,8 +42,8 @@ public class ContactHelper extends HelperBase {
         dropdown.findElement(By.xpath("//option[. = '" + text + "']")).click();
     }
 
-    public void removeContact(ContactData contact) {
-        selectContact(contact);
+    public void removeContact() {
+        selectContact();
         removeSelectedContacts();
         returnToContactPage();
     }
@@ -68,24 +60,11 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//input[@value=\'Delete\']"));
     }
 
-    public boolean isContactPresent() {
-        return manager.isElementPresent(By.name("selected[]"));
-    }
-
     private void returnToContactPage() {
         click(By.linkText("home"));
     }
 
-    private void submitContactModification() {
-        click(By.name("update"));
-    }
-
-    private void initContactModification(int index) {
-        int teg_index = index + 2;
-        click(By.xpath("//tr[" + teg_index + "]/td[8]/a/img[@alt='Edit']"));
-    }
-
-    private void selectContact(ContactData contact) {
+    private void selectContact() {
         click(By.name("selected[]"));
     }
 

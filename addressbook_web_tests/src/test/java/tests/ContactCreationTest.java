@@ -8,7 +8,7 @@ public class ContactCreationTest extends TestBase {
     // Создание контакта
     @Test
     public void canCreateContact() {
-        app.createContact(new ContactData(
+        app.contacts().createContact(new ContactData(
                 "firstname",
                 "middlename",
                 "lastname",
@@ -30,36 +30,36 @@ public class ContactCreationTest extends TestBase {
     // Создание контакта с пустыми полями
     @Test
     public void canCreateContactWithEmptyName() {
-        app.createContact(new ContactData());
+        app.contacts().createContact(new ContactData());
     }
 
     // Создание контакта с Firstname
     @Test
     public void canCreateContactWithFirstnameOnly() {
-        app.createContact(new ContactData().withFirstname("name"));
+        app.contacts().createContact(new ContactData().withFirstname("name"));
     }
 
     // Создание контакта с Lastnam
     @Test
     public void canCreateContactWithLastnameOnly() {
-        app.createContact(new ContactData().withLastname("family"));
+        app.contacts().createContact(new ContactData().withLastname("family"));
     }
 
     // Создание контакта с Address
     @Test
     public void canCreateContactWithAddressOnly() {
-        app.createContact(new ContactData().withAddress("city"));
+        app.contacts().createContact(new ContactData().withAddress("city"));
     }
 
     // Создание контакта с Email
     @Test
     public void canCreateContactWithEmailOnly() {
-        app.createContact(new ContactData().withEmail("mail@mail.com"));
+        app.contacts().createContact(new ContactData().withEmail("mail@mail.com"));
     }
 
     // Создание контакта с Home
     @Test
     public void canCreateContactWithHomeNumberOnly() {
-        app.createContact(new ContactData().withHome("65456"));
+        app.contacts().createContact(new ContactData().withHome("65456"));
     }
 }
