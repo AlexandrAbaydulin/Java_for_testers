@@ -2,24 +2,51 @@ package tests;
 
 import model.GroupData;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GroupCreationsTests extends TestBase {
 
-    // Создание Группы с заполненными полями
-    @Test
-    public void canCreateGroup() {
-        app.groups().createGroup(new GroupData("group name", "group header", "group footer"));
+    public static List<GroupData> groupProvider() {
+        var result = new ArrayList<GroupData>();
+        for (var name : List.of("", "group name")) {
+            for (var header: List.of("", "group header")) {
+                for (var footer: List.of("", "group footer")) {
+                    result.add(new GroupData(name, header, footer));
+                }
+            }
+        }
+        for (int i = 0; i < 5; i++) {
+            result.add(new GroupData(randomString(i * 7), randomString(i * 7), randomString(i * 7)));
+        }
+        return result;
     }
 
-    // Создание Группы с пустыми полями
-    @Test
-    public void canCreateGroupWithEmptyName() {
-        app.groups().createGroup(new GroupData());
+    // Создание Групп с заполненными полями
+    @ParameterizedTest
+    @MethodSource("groupProvider")
+    public void canCreateMultipleGroups(GroupData group) {
+        int groupCount = app.groups().getCount();
+        app.groups().createGroup(group);
+        int newGroupCount = app.groups().getCount();
+        Assertions.assertEquals(groupCount + 1, newGroupCount);
     }
 
-    // Создание Группы с заполенным полем Name
-    @Test
-    public void canCreateGroupWithNameOnly() {
-        app.groups().createGroup(new GroupData().withName("some name"));
+    public static List<GroupData> negativeGroupProvider() {
+        var result = new ArrayList<GroupData>(List.of(
+                new GroupData("group name'", "", "")));
+        return result;
+    }
+
+    @ParameterizedTest
+    @MethodSource("negativeGroupProvider")
+    public void canNotCreateGroup(GroupData group) {
+        int groupCount = app.groups().getCount();
+        app.groups().createGroup(group);
+        int newGroupCount = app.groups().getCount();
+        Assertions.assertEquals(groupCount, newGroupCount);
     }
 }
