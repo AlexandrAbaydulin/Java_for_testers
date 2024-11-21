@@ -1,9 +1,10 @@
-package tests;
+package tests.Group;
 
 import model.GroupData;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import tests.TestBase;
 
 import java.util.ArrayList;
 import java.util.Comparator;

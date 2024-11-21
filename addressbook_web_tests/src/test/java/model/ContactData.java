@@ -1,11 +1,12 @@
 package model;
 
-public record ContactData(String firstname, String middlename, String lastname, String nickname, String title,
+public record ContactData(String id,String firstname, String middlename, String lastname, String nickname, String title,
                           String company, String address, String home, String email, String homepage, String bday,
                           String bmonth, String byear, String aday, String amonth, String ayear) {
 
     public ContactData() {
         this(
+                "",
                 "",
                 "",
                 "",
@@ -24,8 +25,30 @@ public record ContactData(String firstname, String middlename, String lastname, 
                 "");
     }
 
+    public ContactData withId(String id) {
+        return new ContactData(
+                id,
+                this.firstname,
+                this.middlename,
+                this.lastname,
+                this.nickname,
+                this.title,
+                this.company,
+                this.address,
+                this.home,
+                this.email,
+                this.homepage,
+                this.bday,
+                this.bmonth,
+                this.byear,
+                this.aday,
+                this.amonth,
+                this.ayear);
+    }
+
     public ContactData withFirstname(String firstname) {
         return new ContactData(
+                this.id,
                 firstname,
                 this.middlename,
                 this.lastname,
@@ -46,6 +69,7 @@ public record ContactData(String firstname, String middlename, String lastname, 
 
     public ContactData withLastname(String lastname) {
         return new ContactData(
+                this.id,
                 this.firstname,
                 this.middlename,
                 lastname,
@@ -66,6 +90,7 @@ public record ContactData(String firstname, String middlename, String lastname, 
 
     public ContactData withAddress(String address) {
         return new ContactData(
+                this.id,
                 this.firstname,
                 this.middlename,
                 this.lastname,
@@ -86,6 +111,7 @@ public record ContactData(String firstname, String middlename, String lastname, 
 
     public ContactData withEmail(String email) {
         return new ContactData(
+                this.id,
                 this.firstname,
                 this.middlename,
                 this.lastname,
@@ -106,6 +132,7 @@ public record ContactData(String firstname, String middlename, String lastname, 
 
     public ContactData withHome(String home) {
         return new ContactData(
+                this.id,
                 this.firstname,
                 this.middlename,
                 this.lastname,
@@ -127,6 +154,7 @@ public record ContactData(String firstname, String middlename, String lastname, 
 
     public ContactData withMiddlename(String middlename) {
         return new ContactData(
+                this.id,
                 this.firstname,
                 middlename,
                 this.lastname,
@@ -147,6 +175,7 @@ public record ContactData(String firstname, String middlename, String lastname, 
 
     public ContactData withNickname(String nickname) {
         return new ContactData(
+                this.id,
                 this.firstname,
                 this.middlename,
                 this.lastname,
@@ -167,6 +196,7 @@ public record ContactData(String firstname, String middlename, String lastname, 
 
     public ContactData withTitle(String title) {
         return new ContactData(
+                this.id,
                 this.firstname,
                 this.middlename,
                 this.lastname,
@@ -187,6 +217,7 @@ public record ContactData(String firstname, String middlename, String lastname, 
 
     public ContactData withCompany(String company) {
         return new ContactData(
+                this.id,
                 this.firstname,
                 this.middlename,
                 this.lastname,
@@ -207,6 +238,7 @@ public record ContactData(String firstname, String middlename, String lastname, 
 
     public ContactData withHomepage(String homepage) {
         return new ContactData(
+                this.id,
                 this.firstname,
                 this.middlename,
                 this.lastname,
@@ -227,6 +259,7 @@ public record ContactData(String firstname, String middlename, String lastname, 
 
     public ContactData withBday(String bday) {
         return new ContactData(
+                this.id,
                 this.firstname,
                 this.middlename,
                 this.lastname,
@@ -247,6 +280,7 @@ public record ContactData(String firstname, String middlename, String lastname, 
 
     public ContactData withAday(String aday) {
         return new ContactData(
+                this.id,
                 this.firstname,
                 this.middlename,
                 this.lastname,
@@ -267,6 +301,7 @@ public record ContactData(String firstname, String middlename, String lastname, 
 
     public ContactData withBmonth(String bmonth) {
         return new ContactData(
+                this.id,
                 this.firstname,
                 this.middlename,
                 this.lastname,
@@ -287,6 +322,7 @@ public record ContactData(String firstname, String middlename, String lastname, 
 
     public ContactData withAmonth(String amonth) {
         return new ContactData(
+                this.id,
                 this.firstname,
                 this.middlename,
                 this.lastname,
@@ -307,6 +343,7 @@ public record ContactData(String firstname, String middlename, String lastname, 
 
     public ContactData withByear(String byear) {
         return new ContactData(
+                this.id,
                 this.firstname,
                 this.middlename,
                 this.lastname,
@@ -327,6 +364,7 @@ public record ContactData(String firstname, String middlename, String lastname, 
 
     public ContactData withAyear(String ayear) {
         return new ContactData(
+                this.id,
                 this.firstname,
                 this.middlename,
                 this.lastname,

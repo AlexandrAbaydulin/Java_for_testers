@@ -1,8 +1,9 @@
-package tests;
+package tests.Contact;
 
 import model.ContactData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import tests.TestBase;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -14,6 +15,7 @@ public class ContactRemovalTest extends TestBase {
         if (!app.contacts().isContactPresent()) {
             app.contacts().createContact(
                     new ContactData(
+                            "",
                             "",
                             "",
                             "",
@@ -46,6 +48,7 @@ public class ContactRemovalTest extends TestBase {
         if (!app.contacts().isContactPresent()) {
             app.contacts().createContact(
                     new ContactData(
+                            "",
                             "",
                             "",
                             "",

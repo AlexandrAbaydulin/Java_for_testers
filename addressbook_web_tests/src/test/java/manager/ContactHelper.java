@@ -20,6 +20,23 @@ public class ContactHelper extends HelperBase {
         returnToContactPage();
     }
 
+    public void modifyContact(ContactData contact, ContactData modifiedContact, int index) {
+        selectContact(contact);
+        initContactModification(index);
+        fillContactForm(modifiedContact);
+        submitContactModification();
+        returnToContactPage();
+    }
+
+    private void submitContactModification() {
+        click(By.name("update"));
+    }
+
+    private void initContactModification(int index) {
+        int teg_index = index + 2;
+        click(By.xpath("//tr[" + teg_index + "]/td[8]/a/img[@alt='Edit']"));
+    }
+
     private void fillContactForm(ContactData contact) {
         type(By.name("firstname"), contact.firstname());
         type(By.name("middlename"), contact.middlename());
@@ -49,8 +66,8 @@ public class ContactHelper extends HelperBase {
         return manager.isElementPresent(By.name("selected[]"));
     }
 
-    public void removeContact(ContactData contactData) {
-        selectContact();
+    public void removeContact(ContactData contact) {
+        selectContact(contact);
         removeSelectedContacts();
         returnToContactPage();
     }
@@ -71,8 +88,8 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("home"));
     }
 
-    private void selectContact() {
-        click(By.name("selected[]"));
+    private void selectContact(ContactData contact) {
+        click(By.cssSelector(String.format("input[value='%s']", contact.id())));
     }
 
     public void removeAllContact() {
@@ -104,6 +121,7 @@ public class ContactHelper extends HelperBase {
             var id = checkbox_locator.getAttribute("value");
 
             contacts.add(new ContactData()
+                    .withId(id)
                     .withFirstname(firstname)
                     .withLastname(lastname));
         }
