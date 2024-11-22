@@ -2,7 +2,7 @@ package model;
 
 public record ContactData(String id,String firstname, String middlename, String lastname, String nickname, String title,
                           String company, String address, String home, String email, String homepage, String bday,
-                          String bmonth, String byear, String aday, String amonth, String ayear) {
+                          String bmonth, String byear, String aday, String amonth, String ayear, String photo) {
 
     public ContactData() {
         this(
@@ -22,6 +22,7 @@ public record ContactData(String id,String firstname, String middlename, String 
                 "",
                 "-",
                 "-",
+                "",
                 "");
     }
 
@@ -43,7 +44,8 @@ public record ContactData(String id,String firstname, String middlename, String 
                 this.byear,
                 this.aday,
                 this.amonth,
-                this.ayear);
+                this.ayear,
+                this.photo);
     }
 
     public ContactData withFirstname(String firstname) {
@@ -64,7 +66,8 @@ public record ContactData(String id,String firstname, String middlename, String 
                 this.byear,
                 this.aday,
                 this.amonth,
-                this.ayear);
+                this.ayear,
+        this.photo);
     }
 
     public ContactData withLastname(String lastname) {
@@ -85,7 +88,8 @@ public record ContactData(String id,String firstname, String middlename, String 
                 this.byear,
                 this.aday,
                 this.amonth,
-                this.ayear);
+                this.ayear,
+                this.photo);
     }
 
     public ContactData withAddress(String address) {
@@ -106,7 +110,8 @@ public record ContactData(String id,String firstname, String middlename, String 
                 this.byear,
                 this.aday,
                 this.amonth,
-                this.ayear);
+                this.ayear,
+                this.photo);
     }
 
     public ContactData withEmail(String email) {
@@ -127,7 +132,8 @@ public record ContactData(String id,String firstname, String middlename, String 
                 this.byear,
                 this.aday,
                 this.amonth,
-                this.ayear);
+                this.ayear,
+                this.photo);
     }
 
     public ContactData withHome(String home) {
@@ -148,7 +154,8 @@ public record ContactData(String id,String firstname, String middlename, String 
                 this.byear,
                 this.aday,
                 this.amonth,
-                this.ayear);
+                this.ayear,
+                this.photo);
     }
 
 
@@ -170,7 +177,8 @@ public record ContactData(String id,String firstname, String middlename, String 
                 this.byear,
                 this.aday,
                 this.amonth,
-                this.ayear);
+                this.ayear,
+                this.photo);
     }
 
     public ContactData withNickname(String nickname) {
@@ -191,7 +199,8 @@ public record ContactData(String id,String firstname, String middlename, String 
                 this.byear,
                 this.aday,
                 this.amonth,
-                this.ayear);
+                this.ayear,
+                this.photo);
     }
 
     public ContactData withTitle(String title) {
@@ -212,7 +221,8 @@ public record ContactData(String id,String firstname, String middlename, String 
                 this.byear,
                 this.aday,
                 this.amonth,
-                this.ayear);
+                this.ayear,
+                this.photo);
     }
 
     public ContactData withCompany(String company) {
@@ -233,7 +243,8 @@ public record ContactData(String id,String firstname, String middlename, String 
                 this.byear,
                 this.aday,
                 this.amonth,
-                this.ayear);
+                this.ayear,
+                this.photo);
     }
 
     public ContactData withHomepage(String homepage) {
@@ -254,7 +265,8 @@ public record ContactData(String id,String firstname, String middlename, String 
                 this.byear,
                 this.aday,
                 this.amonth,
-                this.ayear);
+                this.ayear,
+                this.photo);
     }
 
     public ContactData withBday(String bday) {
@@ -275,7 +287,8 @@ public record ContactData(String id,String firstname, String middlename, String 
                 this.byear,
                 this.aday,
                 this.amonth,
-                this.ayear);
+                this.ayear,
+                this.photo);
     }
 
     public ContactData withAday(String aday) {
@@ -296,7 +309,8 @@ public record ContactData(String id,String firstname, String middlename, String 
                 this.byear,
                 aday,
                 this.amonth,
-                this.ayear);
+                this.ayear,
+                this.photo);
     }
 
     public ContactData withBmonth(String bmonth) {
@@ -317,7 +331,8 @@ public record ContactData(String id,String firstname, String middlename, String 
                 this.byear,
                 this.aday,
                 this.amonth,
-                this.ayear);
+                this.ayear,
+                this.photo);
     }
 
     public ContactData withAmonth(String amonth) {
@@ -338,7 +353,8 @@ public record ContactData(String id,String firstname, String middlename, String 
                 this.byear,
                 this.aday,
                 amonth,
-                this.ayear);
+                this.ayear,
+                this.photo);
     }
 
     public ContactData withByear(String byear) {
@@ -359,7 +375,8 @@ public record ContactData(String id,String firstname, String middlename, String 
                 byear,
                 this.aday,
                 this.amonth,
-                this.ayear);
+                this.ayear,
+                this.photo);
     }
 
     public ContactData withAyear(String ayear) {
@@ -380,6 +397,29 @@ public record ContactData(String id,String firstname, String middlename, String 
                 this.byear,
                 this.aday,
                 this.amonth,
-                ayear);
+                ayear,
+                this.photo);
+    }
+
+    public ContactData withPhoto(String photo) {
+        return new ContactData(
+                this.id,
+                this.firstname,
+                this.middlename,
+                this.lastname,
+                this.nickname,
+                this.title,
+                this.company,
+                this.address,
+                this.home,
+                this.email,
+                this.homepage,
+                this.bday,
+                this.bmonth,
+                this.byear,
+                this.aday,
+                this.amonth,
+                this.ayear,
+                photo);
     }
 }

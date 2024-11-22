@@ -31,6 +31,7 @@ public class ContactRemovalTest extends TestBase {
                             "",
                             "-",
                             "-",
+                            "",
                             ""));
         }
         var oldContact = app.contacts().getList();
@@ -64,6 +65,7 @@ public class ContactRemovalTest extends TestBase {
                             "",
                             "-",
                             "-",
+                            "",
                             ""));
         }
         app.contacts().removeAllContact();

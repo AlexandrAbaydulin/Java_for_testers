@@ -2,6 +2,7 @@ package tests.Contact;
 
 import model.ContactData;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import tests.TestBase;
@@ -74,5 +75,14 @@ public class ContactCreationTest extends TestBase {
 
         expectedList.sort(compareById);
         Assertions.assertEquals(newContacts, expectedList);
+    }
+
+    @Test
+    void canCreateContact() {
+        var contact = new ContactData()
+                .withFirstname(randomString(10))
+                .withLastname(randomString(10))
+                .withPhoto(randomFile("src/test/resources/images"));
+        app.contacts().createContact(contact);
     }
 }

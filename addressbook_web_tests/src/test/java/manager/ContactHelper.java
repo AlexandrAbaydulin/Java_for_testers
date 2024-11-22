@@ -54,6 +54,7 @@ public class ContactHelper extends HelperBase {
         dropdownClick(By.xpath("//select[@name='aday']"), contact.aday());
         dropdownClick(By.xpath("//select[@name='amonth']"), contact.amonth());
         type(By.name("ayear"), contact.ayear());
+        attach(By.name("photo"), contact.photo());
     }
 
     private void dropdownClick(By locator, String text) {
