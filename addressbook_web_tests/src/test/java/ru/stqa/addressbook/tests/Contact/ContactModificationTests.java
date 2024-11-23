@@ -1,8 +1,9 @@
 package ru.stqa.addressbook.tests.Contact;
 
-import ru.stqa.addressbook.model.ContactData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ru.stqa.addressbook.common.CommonFunctions;
+import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.tests.TestBase;
 
 import java.util.ArrayList;
@@ -15,11 +16,10 @@ public class ContactModificationTests extends TestBase {
     void canModifyContact() {
         if (app.contacts().getCount() == 0) {
             app.contacts().createContact(
-                    new ContactData(
-                            "",
-                            "",
-                            "",
-                            ""));
+                    new ContactData()
+                            .withFirstname(CommonFunctions.randomString(10))
+                            .withLastname(CommonFunctions.randomString(10))
+                            .withPhoto(randomFile("src/test/resources/images")));
         }
         var oldContacts = app.contacts().getList();
         var rnd = new Random();

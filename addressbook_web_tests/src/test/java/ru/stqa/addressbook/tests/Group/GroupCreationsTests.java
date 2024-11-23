@@ -40,7 +40,8 @@ public class GroupCreationsTests extends TestBase {
         // Чтение файла целиком Files.readString(Paths.get("groups.json")
         //var json = Files.readString(Paths.get("groups.json"));
         var mapper = new XmlMapper();
-        var value = mapper.readValue(new File("groups.xml"), new TypeReference<List<GroupData>>() {});
+        var value = mapper.readValue(new File("groups.xml"), new TypeReference<List<GroupData>>() {
+        });
         result.addAll(value);
         return result;
     }
@@ -58,7 +59,7 @@ public class GroupCreationsTests extends TestBase {
         newGroups.sort(compareById);
 
         var expectedList = new ArrayList<>(oldGroups);
-        expectedList.add(group.withId(newGroups.get(newGroups.size()-1).id()).withHeader("").withFooter(""));
+        expectedList.add(group.withId(newGroups.get(newGroups.size() - 1).id()).withHeader("").withFooter(""));
         expectedList.sort(compareById);
         Assertions.assertEquals(newGroups, expectedList);
     }

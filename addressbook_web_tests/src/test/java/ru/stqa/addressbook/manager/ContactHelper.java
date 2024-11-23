@@ -1,8 +1,8 @@
 package ru.stqa.addressbook.manager;
 
-import ru.stqa.addressbook.model.ContactData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import ru.stqa.addressbook.model.ContactData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +23,20 @@ public class ContactHelper extends HelperBase {
     public void modifyContact(ContactData contact, ContactData modifiedContact, int index) {
         selectContact(contact);
         initContactModification(index);
-        fillContactForm(modifiedContact);
+        fillContactFormMod(modifiedContact);
         submitContactModification();
+        returnToContactPage();
+    }
+
+    public void removeContact(ContactData contact) {
+        selectContact(contact);
+        removeSelectedContacts();
+        returnToContactPage();
+    }
+
+    public void removeAllContact() {
+        selectAllContact();
+        removeSelectedContacts();
         returnToContactPage();
     }
 
@@ -43,6 +55,11 @@ public class ContactHelper extends HelperBase {
         attach(By.name("photo"), contact.photo());
     }
 
+    private void fillContactFormMod(ContactData contact) {
+        type(By.name("firstname"), contact.firstname());
+        type(By.name("lastname"), contact.lastname());
+    }
+
     private void dropdownClick(By locator, String text) {
         click(locator);
         WebElement dropdown = manager.driver.findElement(locator);
@@ -51,12 +68,6 @@ public class ContactHelper extends HelperBase {
 
     public boolean isContactPresent() {
         return manager.isElementPresent(By.name("selected[]"));
-    }
-
-    public void removeContact(ContactData contact) {
-        selectContact(contact);
-        removeSelectedContacts();
-        returnToContactPage();
     }
 
     private void submitContactCreation() {
@@ -77,12 +88,6 @@ public class ContactHelper extends HelperBase {
 
     private void selectContact(ContactData contact) {
         click(By.cssSelector(String.format("input[value='%s']", contact.id())));
-    }
-
-    public void removeAllContact() {
-        selectAllContact();
-        removeSelectedContacts();
-        returnToContactPage();
     }
 
     private void selectAllContact() {
@@ -108,12 +113,11 @@ public class ContactHelper extends HelperBase {
             var id = checkbox_locator.getAttribute("value");
 
             contacts.add(new ContactData()
-                            .withId(id)
-                            .withFirstname(firstname)
-                            .withLastname(lastname)
-                            .withPhoto(""));
+                    .withId(id)
+                    .withFirstname(firstname)
+                    .withLastname(lastname)
+                    .withPhoto(""));
         }
-
         return contacts;
     }
 

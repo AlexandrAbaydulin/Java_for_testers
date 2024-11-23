@@ -35,7 +35,8 @@ public class ContactCreationTest extends TestBase {
         // Чтение файла целиком Files.readString(Paths.get("groups.json")
         //var json = Files.readString(Paths.get("groups.json"));
         var mapper = new XmlMapper();
-        var value = mapper.readValue(new File("contacts.xml"), new TypeReference<List<ContactData>>() {});
+        var value = mapper.readValue(new File("contacts.xml"), new TypeReference<List<ContactData>>() {
+        });
         result.addAll(value);
         return result;
     }
