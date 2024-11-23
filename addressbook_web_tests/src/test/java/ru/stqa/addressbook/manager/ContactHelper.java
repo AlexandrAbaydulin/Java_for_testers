@@ -39,21 +39,7 @@ public class ContactHelper extends HelperBase {
 
     private void fillContactForm(ContactData contact) {
         type(By.name("firstname"), contact.firstname());
-        type(By.name("middlename"), contact.middlename());
         type(By.name("lastname"), contact.lastname());
-        type(By.name("nickname"), contact.nickname());
-        type(By.name("title"), contact.title());
-        type(By.name("company"), contact.company());
-        type(By.name("address"), contact.address());
-        type(By.name("home"), contact.home());
-        type(By.name("email"), contact.email());
-        type(By.name("homepage"), contact.homepage());
-        dropdownClick(By.xpath("//select[@name='bday']"), contact.bday());
-        dropdownClick(By.xpath("//select[@name='bmonth']"), contact.bmonth());
-        type(By.name("byear"), contact.byear());
-        dropdownClick(By.xpath("//select[@name='aday']"), contact.aday());
-        dropdownClick(By.xpath("//select[@name='amonth']"), contact.amonth());
-        type(By.name("ayear"), contact.ayear());
         attach(By.name("photo"), contact.photo());
     }
 
@@ -117,14 +103,15 @@ public class ContactHelper extends HelperBase {
 
         for (var locator : main_locators) {
             var lastname = locator.findElement(By.cssSelector("td:nth-child(2)")).getText();
-            var firstname =  locator.findElement(By.cssSelector("td:nth-child(3)")).getText();
+            var firstname = locator.findElement(By.cssSelector("td:nth-child(3)")).getText();
             var checkbox_locator = locator.findElement(By.name("selected[]"));
             var id = checkbox_locator.getAttribute("value");
 
             contacts.add(new ContactData()
-                    .withId(id)
-                    .withFirstname(firstname)
-                    .withLastname(lastname));
+                            .withId(id)
+                            .withFirstname(firstname)
+                            .withLastname(lastname)
+                            .withPhoto(""));
         }
 
         return contacts;

@@ -19,20 +19,6 @@ public class ContactModificationTests extends TestBase {
                             "",
                             "",
                             "",
-                            "",
-                            "",
-                            "",
-                            "",
-                            "",
-                            "",
-                            "",
-                            "",
-                            "-",
-                            "-",
-                            "",
-                            "-",
-                            "-",
-                            "",
                             ""));
         }
         var oldContacts = app.contacts().getList();
