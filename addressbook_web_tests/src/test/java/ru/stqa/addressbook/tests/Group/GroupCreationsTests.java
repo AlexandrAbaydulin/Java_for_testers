@@ -30,7 +30,7 @@ public class GroupCreationsTests extends TestBase {
 //                line = breader.readLine();
 //            }
 //        }
-        
+
         // Чтение файла целиком Files.readString(Paths.get("groups.json")
         //var json = Files.readString(Paths.get("groups.json"));
         var mapper = new XmlMapper();
