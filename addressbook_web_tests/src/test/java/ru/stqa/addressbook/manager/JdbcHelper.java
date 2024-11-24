@@ -1,5 +1,6 @@
 package ru.stqa.addressbook.manager;
 
+import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.GroupData;
 
 import java.sql.DriverManager;
@@ -29,5 +30,38 @@ public class JdbcHelper extends HelperBase {
             throw new RuntimeException(e);
         }
         return groups;
+    }
+
+    public List<ContactData> getContactList() {
+        var contacts = new ArrayList<ContactData>();
+        try (var conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
+             var statement = conn.createStatement();
+             var result = statement.executeQuery("select id, firstname, middlename, lastname, nickname, company, title, address, home, email, homepage, bday, bmonth, byear, aday, amonth, ayear from addressbook")) {
+            //var result = statement.executeQuery("select id, firstname, lastname from addressbook")) {
+
+            while (result.next()) {
+                contacts.add(new ContactData()
+                        .withId(result.getString("id"))
+                        .withFirstname(result.getString("firstname"))
+                        .withLastname(result.getString("lastname"))
+                );
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return contacts;
+    }
+
+    public void checkConsistency() {
+        try (var conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
+             var statement = conn.createStatement();
+             var result = statement.executeQuery(
+                     "SELECT * FROM address_in_groups ag LEFT JOIN addressbook ab ON ab.id = ag.id WHERE ab.id IS NULL")) {
+            if (result.next()) {
+                throw new IllegalStateException("DB is corrupted");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

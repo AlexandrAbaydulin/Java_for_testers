@@ -18,8 +18,7 @@ public class ContactModificationTests extends TestBase {
             app.contacts().createContact(
                     new ContactData()
                             .withFirstname(CommonFunctions.randomString(10))
-                            .withLastname(CommonFunctions.randomString(10))
-                            .withPhoto(randomFile("src/test/resources/images")));
+                            .withLastname(CommonFunctions.randomString(10)));
         }
         var oldContacts = app.contacts().getList();
         var rnd = new Random();

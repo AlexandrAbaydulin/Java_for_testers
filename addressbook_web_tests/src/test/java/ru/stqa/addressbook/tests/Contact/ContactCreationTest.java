@@ -2,19 +2,22 @@ package ru.stqa.addressbook.tests.Contact;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import io.qameta.allure.Allure;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.stqa.addressbook.common.CommonFunctions;
 import ru.stqa.addressbook.model.ContactData;
+import ru.stqa.addressbook.model.GroupData;
 import ru.stqa.addressbook.tests.TestBase;
+import ru.stqa.addressbook.manager.hbm.ContactRecord;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class ContactCreationTest extends TestBase {
 
@@ -41,33 +44,30 @@ public class ContactCreationTest extends TestBase {
         return result;
     }
 
-//        for (var firstname : List.of("", "firstname")) {
-//            for (var middlename : List.of("", "middlename")) {
-//                for (var lastname : List.of("", "lastname")) {
-//                    result.add(new ContactData()
-//                            .withFirstname(firstname)
-//                            .withMiddlename(middlename)
-//                            .withLastname(lastname)
-//                    );
-//                }
-//            }
-//        }
-//        for (int i = 0; i < 5; i++) {
-//            result.add(new ContactData()
-//                    .withFirstname(CommonFunctions.randomString(i * 5))
-//                    .withMiddlename(CommonFunctions.randomString(i * 5))
-//                    .withLastname(CommonFunctions.randomString(i * 5))
-//                    .withNickname(CommonFunctions.randomString(i * 5))
-//                    .withTitle(CommonFunctions.randomString(i * 5))
-//                    .withCompany(CommonFunctions.randomString(i * 5))
-//                    .withAddress(CommonFunctions.randomString(i * 5))
-//                    .withHome(CommonFunctions.randomString(i * 5))
-//                    .withEmail(CommonFunctions.randomString(i * 5))
-//                    .withHomepage(CommonFunctions.randomString(i * 5))
-//            );
-//        }
-//        return result;
-//    }
+    public static Stream<ContactData> randomContacts() {
+        Supplier<ContactData> randomContact = () -> new ContactData()
+                .withFirstname(CommonFunctions.randomString(10))
+                .withLastname(CommonFunctions.randomString(10));
+        return Stream.generate(randomContact).limit(3);
+    }
+
+    @ParameterizedTest
+    @MethodSource("randomContacts")
+    public void canCreateSingleContact(ContactData contact) {
+//        var oldContacts = app.jdbc().getContactList();
+//        app.contacts().createContact(contact);
+//        var newContacts = app.jdbc().getContactList();
+        //Получение списка контактов с применением Hibernate
+        var oldContacts = app.hbm().getContactList();
+        app.contacts().createContact(contact);
+        var newContacts = app.hbm().getContactList();
+
+        var extraContacts = newContacts.stream().filter(g -> !oldContacts.contains(g)).toList();
+        var newId = extraContacts.get(0).id();
+        var expectedList = new ArrayList<>(oldContacts);
+        expectedList.add(contact.withId(newId));
+        Assertions.assertEquals(Set.copyOf(newContacts), Set.copyOf(expectedList));
+    }
 
     @ParameterizedTest
     @MethodSource("contactProvider")
@@ -112,8 +112,81 @@ public class ContactCreationTest extends TestBase {
     void canCreateContact() {
         var contact = new ContactData()
                 .withFirstname(CommonFunctions.randomString(10))
-                .withLastname(CommonFunctions.randomString(10))
-                .withPhoto(randomFile("src/test/resources/images"));
+                .withLastname(CommonFunctions.randomString(10));
         app.contacts().createContact(contact);
+    }
+
+    @Test
+    void canCreateContactInGroup() {
+        var contact = new ContactData()
+                .withFirstname(CommonFunctions.randomString(10))
+                .withLastname(CommonFunctions.randomString(10));
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().createGroup(new GroupData()
+                    .withName(CommonFunctions.randomString(10))
+                    .withHeader(CommonFunctions.randomString(10))
+                    .withFooter(CommonFunctions.randomString(10)));
+        }
+        var group = app.groups().getList().get(0);
+
+        var oldRelated = app.hbm().getContactsInGroup(group);
+        app.contacts().createContact(contact, group);
+        var newRelated = app.hbm().getContactsInGroup(group);
+        var maxId = newRelated.get(newRelated.size() - 1).id();
+        var expectedList = new ArrayList<>(oldRelated);
+        expectedList.add(contact.withId(maxId));
+        Assertions.assertEquals(newRelated, expectedList);
+    }
+
+    @Test
+    void canAddExistContactToGroup() {
+        var indicator = 0; //переменная индикатор
+        if (app.hbm().getGroupCount() == 0) { //если групп нет, то создаем новую группу
+            app.hbm().createGroup(new GroupData()
+                    .withName(CommonFunctions.randomString(10))
+                    .withHeader(CommonFunctions.randomString(10))
+                    .withFooter(CommonFunctions.randomString(10)));
+        }
+        if (app.hbm().getContactCount() == 0) { // если нет контактов, вообще, то создаем контакт
+            app.hbm().createContact(new ContactData()
+                    .withFirstname(CommonFunctions.randomString(5))
+                    .withLastname(CommonFunctions.randomString(5)));
+        }
+        var first_group = app.hbm().getGroupList().get(0); // получаем первую группу с индексом 0
+        var oldRelated = app.hbm().getContactsInGroup(first_group); //список контактов в группе до добавления нового контакта
+        var newRelated = oldRelated;
+        var expectedList = new ArrayList<>(oldRelated);
+
+        var allGroups = app.hbm().getGroupList(); //получаем список групп
+        var allContacts = app.hbm().getContactList(); // получаем список контактов
+
+        for (var group : allGroups) {
+            if (indicator == 1) {
+                break;
+            }
+            for (var contact : allContacts) {
+                if (!app.hbm().getContactsInGroup(group).contains(contact)) {
+                    oldRelated = app.hbm().getContactsInGroup(group); //список контактов в группе до добавления нового контакта
+                    app.contacts().addContactToGroup(contact, group);//добавляем контакт в группу
+                    newRelated = app.hbm().getContactsInGroup(group);
+                    expectedList = new ArrayList<>(oldRelated);
+                    expectedList.add(contact);
+                    indicator = 1;
+                    break;
+                }
+            }
+        }
+        if (indicator == 0) {
+            app.hbm().createContact(new ContactData()
+                    .withFirstname(CommonFunctions.randomString(5))
+                    .withLastname(CommonFunctions.randomString(5)));
+            allContacts = app.hbm().getContactList(); // получаем список контактов
+            var index = allContacts.size();
+            var newContact = app.hbm().getContactList().get(index - 1);
+            app.contacts().addContactToGroup(newContact, first_group);//добавляем контакт в группу
+            newRelated = app.hbm().getContactsInGroup(first_group);
+            expectedList.add(newContact);
+        }
+        Assertions.assertEquals(Set.copyOf(newRelated), Set.copyOf(expectedList));
     }
 }

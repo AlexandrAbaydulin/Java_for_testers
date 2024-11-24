@@ -71,8 +71,7 @@ public class Generator {
         for (int i = 0; i < count; i++) {
             result.add(new ContactData()
                     .withFirstname(CommonFunctions.randomString(i * 5))
-                    .withLastname(CommonFunctions.randomString(i * 5))
-                    .withPhoto("src/test/resources/images/avatar.png"));
+                    .withLastname(CommonFunctions.randomString(i * 5)));
         }
         return result;
     }
