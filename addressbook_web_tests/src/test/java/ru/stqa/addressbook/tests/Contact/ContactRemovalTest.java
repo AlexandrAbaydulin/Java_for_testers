@@ -21,6 +21,15 @@ public class ContactRemovalTest extends TestBase {
             app.hbm().createContact(new ContactData(
                     "",
                     "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
                     ""));
         }
 //получить количество контактов. что бы сравнить с новым количеством

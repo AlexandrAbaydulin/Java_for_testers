@@ -75,7 +75,16 @@ public class HibernateHelper extends HelperBase {
         return new ContactData(
                 "" + record.id,
                 record.firstname,
-                record.lastname);
+                record.lastname,
+                record.address,
+                record.home,
+                record.mobile,
+                record.work,
+                record.email,
+                record.photo,
+                record.phone2,
+                record.email2,
+                record.email3);
     }
 
     private static ContactRecord convertContact(ContactData data) {
@@ -85,7 +94,16 @@ public class HibernateHelper extends HelperBase {
         }
         return new ContactRecord(Integer.parseInt(id),
                 data.firstname(),
-                data.lastname());
+                data.lastname(),
+                data.address(),
+                data.home(),
+                data.mobile(),
+                data.work(),
+                data.email(),
+                data.photo(),
+                data.secondary(),
+                data.email2(),
+                data.email3());
     }
 
     public long getGroupCount() {
