@@ -3,9 +3,9 @@ package ru.stqa.addressbook.manager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.stqa.addressbook.model.GroupData;
-import java.util.stream.Collectors;
-import java.util.ArrayList;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GroupHelper extends HelperBase {
 

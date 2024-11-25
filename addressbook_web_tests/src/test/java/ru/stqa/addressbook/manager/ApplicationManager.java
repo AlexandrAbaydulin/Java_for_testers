@@ -90,13 +90,13 @@ public class ApplicationManager {
         driver.findElement(By.name("firstname")).click();
         driver.findElement(By.name("firstname")).sendKeys(contact.firstname());
         driver.findElement(By.name("lastname")).click();
-        driver.findElement(By.xpath("//div[@id=\'content\']/form/input[20]")).click();
+        driver.findElement(By.xpath("//div[@id='content']/form/input[20]")).click();
         driver.findElement(By.linkText("home page")).click();
     }
 
     public void removeContact() {
         driver.findElement(By.name("selected[]")).click();
-        driver.findElement(By.xpath("//input[@value=\'Delete\']")).click();
+        driver.findElement(By.xpath("//input[@value='Delete']")).click();
         driver.findElement(By.linkText("home")).click();
     }
 

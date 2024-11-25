@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class HibernateHelper extends HelperBase {
 
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     public HibernateHelper(ApplicationManager manager) {
         super(manager);
@@ -47,19 +47,6 @@ public class HibernateHelper extends HelperBase {
             id = "0";
         }
         return new GroupRecord(Integer.parseInt(id), data.name(), data.header(), data.footer());
-    }
-
-    @Step
-    public List<GroupData> getGroupList() {
-        return convertGroupList(sessionFactory.fromSession(session -> {
-            return session.createQuery("from GroupRecord", GroupRecord.class).list();
-        }));
-    }
-
-    public List<ContactData> getContactList() {
-        return convertContactList(sessionFactory.fromSession(session -> {
-            return session.createQuery("from ContactRecord", ContactRecord.class).list();
-        }));
     }
 
     static List<ContactData> convertContactList(List<ContactRecord> records) {
@@ -104,6 +91,19 @@ public class HibernateHelper extends HelperBase {
                 data.secondary(),
                 data.email2(),
                 data.email3());
+    }
+
+    @Step
+    public List<GroupData> getGroupList() {
+        return convertGroupList(sessionFactory.fromSession(session -> {
+            return session.createQuery("from GroupRecord", GroupRecord.class).list();
+        }));
+    }
+
+    public List<ContactData> getContactList() {
+        return convertContactList(sessionFactory.fromSession(session -> {
+            return session.createQuery("from ContactRecord", ContactRecord.class).list();
+        }));
     }
 
     public long getGroupCount() {

@@ -1,6 +1,5 @@
 package ru.stqa.addressbook.manager.hbm;
 
-import com.google.protobuf.Timestamp;
 import jakarta.persistence.*;
 
 import java.util.Date;

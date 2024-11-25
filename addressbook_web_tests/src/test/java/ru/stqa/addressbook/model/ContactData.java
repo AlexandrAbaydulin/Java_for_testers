@@ -15,7 +15,7 @@ public record ContactData(String id,
 
     public ContactData() {
         this(
-                "" ,
+                "",
                 "",
                 "",
                 "",
@@ -124,6 +124,7 @@ public record ContactData(String id,
                 this.email2,
                 this.email3);
     }
+
     public ContactData withMobile(String mobile) {
         return new ContactData(
                 this.id,
@@ -139,6 +140,7 @@ public record ContactData(String id,
                 this.email2,
                 this.email3);
     }
+
     public ContactData withWork(String work) {
         return new ContactData(
                 this.id,
@@ -154,6 +156,7 @@ public record ContactData(String id,
                 this.email2,
                 this.email3);
     }
+
     public ContactData withSecondary(String secondary) {
         return new ContactData(
                 this.id,
@@ -185,6 +188,7 @@ public record ContactData(String id,
                 this.email2,
                 this.email3);
     }
+
     public ContactData withEmail2(String email2) {
         return new ContactData(
                 this.id,

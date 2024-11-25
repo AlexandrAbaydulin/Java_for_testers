@@ -7,11 +7,9 @@ import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.GroupData;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
@@ -205,5 +203,18 @@ public class ContactHelper extends HelperBase {
             result.put(id, phones);
         }
         return result;
+    }
+
+    public String getEmails(ContactData contact) {
+        return manager.driver.findElement(By.xpath
+                        (String.format("//input[@id='%s']/../../td[5]", contact.id()))).
+                getText();
+
+    }
+
+    public String getAddress(ContactData contact) {
+        return manager.driver.findElement(By.xpath
+                        (String.format("//input[@id='%s']/../../td[4]", contact.id()))).
+                getText();
     }
 }

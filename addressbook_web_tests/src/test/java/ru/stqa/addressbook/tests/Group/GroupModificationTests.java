@@ -1,13 +1,12 @@
 package ru.stqa.addressbook.tests.Group;
 
-import ru.stqa.addressbook.common.CommonFunctions;
-import ru.stqa.addressbook.model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ru.stqa.addressbook.common.CommonFunctions;
+import ru.stqa.addressbook.model.GroupData;
 import ru.stqa.addressbook.tests.TestBase;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Random;
 import java.util.Set;
 
