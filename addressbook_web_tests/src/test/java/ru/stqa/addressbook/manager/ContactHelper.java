@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ContactHelper extends HelperBase {
 
@@ -216,5 +217,35 @@ public class ContactHelper extends HelperBase {
         return manager.driver.findElement(By.xpath
                         (String.format("//input[@id='%s']/../../td[4]", contact.id()))).
                 getText();
+    }
+
+    public String getPhoneEditMode() {
+        var homeNumber = manager.driver.findElement(By.name("home")).getAttribute("value");
+        var mobileNumber = manager.driver.findElement(By.name("mobile")).getAttribute("value");
+        var workNumber = manager.driver.findElement(By.name("work")).getAttribute("value");
+        return Stream.of(homeNumber, mobileNumber, workNumber)
+                .filter(s -> s != null && !"".equals(s))
+                .collect(Collectors.joining("\n"));
+    }
+
+    public String getAddressEditMode() {
+        var address = manager.driver.findElement(By.name("address")).getAttribute("value");
+        return address;
+    }
+
+    public String getEmailsEditMode() {
+        var email = manager.driver.findElement(By.name("email")).getAttribute("value");
+        var email2 = manager.driver.findElement(By.name("email2")).getAttribute("value");
+        var email3 = manager.driver.findElement(By.name("email3")).getAttribute("value");
+        return Stream.of(email, email2, email3)
+                .filter(s -> s != null && !"".equals(s))
+                .collect(Collectors.joining("\n"));
+    }
+
+    public void initContactModification(ContactData contact) {
+        var elementId = manager.driver.findElement(By.id(contact.id()));
+        var entry = elementId.findElement(By.xpath("../.."));
+        var editButton = entry.findElement(By.cssSelector("td:nth-child(8)"));
+        editButton.click();
     }
 }
