@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.time.Duration;
 import java.util.regex.Pattern;
 
-public class MailTests extends TestBase{
+public class MailTests extends TestBase {
 
 
     @Test

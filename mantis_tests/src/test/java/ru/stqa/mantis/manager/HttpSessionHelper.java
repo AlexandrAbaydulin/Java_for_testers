@@ -43,4 +43,10 @@ public class HttpSessionHelper extends HelperBase {
             throw new RuntimeException(e);
         }
     }
+
+    public void signUp() {
+        Request request = new Request.Builder()
+                .url(String.format("%s/login.php", manager.property("web.baseUrl")))
+                .build();
+    }
 }

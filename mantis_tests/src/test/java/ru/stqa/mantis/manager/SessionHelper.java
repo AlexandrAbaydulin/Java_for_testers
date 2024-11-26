@@ -2,7 +2,7 @@ package ru.stqa.mantis.manager;
 
 import org.openqa.selenium.By;
 
-public class SessionHelper extends HelperBase{
+public class SessionHelper extends HelperBase {
 
     public SessionHelper(ApplicationManager manager) {
         super(manager);

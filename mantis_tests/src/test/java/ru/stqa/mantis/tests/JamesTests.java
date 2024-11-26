@@ -3,7 +3,7 @@ package ru.stqa.mantis.tests;
 import org.junit.jupiter.api.Test;
 import ru.stqa.mantis.common.CommonFunctions;
 
-public class JamesTests extends TestBase{
+public class JamesTests extends TestBase {
 
     @Test
     void canCreateUsers() {

@@ -16,6 +16,7 @@ public class ApplicationManager {
     private HttpSessionHelper httpSessionHelper;
     private JamesCliHelper jamesCliHelper;
     private MailHelper mailHelper;
+    private UserHelper userHelper;
 
 
     public void init(String browser, Properties properties) {
@@ -25,7 +26,7 @@ public class ApplicationManager {
     }
 
     public WebDriver driver() {
-        if (driver == null){
+        if (driver == null) {
             if ("chrome".equals(browser)) {
                 driver = new ChromeDriver();
             } else if ("firefox".equals(browser)) {
@@ -65,6 +66,13 @@ public class ApplicationManager {
             mailHelper = new MailHelper(this);
         }
         return mailHelper;
+    }
+
+    public UserHelper user() {
+        if (userHelper == null) {
+            userHelper = new UserHelper(this);
+        }
+        return userHelper;
     }
 
     public String property(String name) {

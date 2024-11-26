@@ -8,11 +8,25 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
-public class MailHelper extends HelperBase{
+public class MailHelper extends HelperBase {
 
     public MailHelper(ApplicationManager manager) {
         super(manager);
+    }
+
+    private static Folder getInbox(String username, String password) {
+
+        try {
+            var session = Session.getInstance(new Properties());
+            Store store = session.getStore("pop3");
+            store.connect("localhost", username, password);
+            var inbox = store.getFolder("INBOX");
+            return inbox;
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<MailMessage> receive(String username, String password, Duration duration) {
@@ -27,7 +41,7 @@ public class MailHelper extends HelperBase{
                             try {
                                 return new MailMessage()
                                         .withFrom(m.getFrom()[0].toString())
-                                        .withContent((String)m.getContent());
+                                        .withContent((String) m.getContent());
                             } catch (MessagingException | IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -50,19 +64,6 @@ public class MailHelper extends HelperBase{
         throw new RuntimeException("No mail");
     }
 
-    private static Folder getInbox(String username, String password){
-
-        try {
-            var session = Session.getInstance(new Properties());
-            Store store = session.getStore("pop3");
-            store.connect("localhost", username, password);
-            var inbox = store.getFolder("INBOX");
-            return inbox;
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public void drain(String username, String password) {
         try {
             var inbox = getInbox(username, password);
@@ -79,6 +80,16 @@ public class MailHelper extends HelperBase{
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    public Object extractUrl(List<MailMessage> messages) {
+        var text = messages.get(0).content();
+        var pattern = Pattern.compile("http://\\S*");
+        var matcher = pattern.matcher(text);
+        var url = "";
+        if (matcher.find()) {
+            url = text.substring(matcher.start(), matcher.end());
+        }
+        return url;
     }
 }

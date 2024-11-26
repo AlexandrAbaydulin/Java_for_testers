@@ -2,7 +2,7 @@ package ru.stqa.mantis.model;
 
 public record MailMessage(String from, String content) {
     public MailMessage() {
-        this("","");
+        this("", "");
     }
 
     public MailMessage withFrom(String from) {
