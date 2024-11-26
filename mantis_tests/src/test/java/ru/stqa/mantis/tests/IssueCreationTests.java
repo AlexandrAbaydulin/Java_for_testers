@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import ru.stqa.mantis.common.CommonFunctions;
 import ru.stqa.mantis.model.IssueData;
 
-public class IssueCreationTests extends TestBase{
+public class IssueCreationTests extends TestBase {
 
     @Test
     void canCreateIssue() {

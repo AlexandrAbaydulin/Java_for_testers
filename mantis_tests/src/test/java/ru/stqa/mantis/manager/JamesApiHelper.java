@@ -1,12 +1,9 @@
 package ru.stqa.mantis.manager;
 
 import okhttp3.*;
-import org.openqa.selenium.io.CircularOutputStream;
-import org.openqa.selenium.os.CommandLine;
 
 import java.io.IOException;
 import java.net.CookieManager;
-import java.util.regex.Pattern;
 
 public class JamesApiHelper extends HelperBase {
 

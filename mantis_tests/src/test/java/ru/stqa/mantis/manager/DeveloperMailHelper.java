@@ -1,6 +1,5 @@
 package ru.stqa.mantis.manager;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeUtility;
@@ -15,11 +14,10 @@ import java.io.IOException;
 import java.net.CookieManager;
 import java.time.Duration;
 
-public class DeveloperMailHelper extends HelperBase{
-
-    OkHttpClient client;
+public class DeveloperMailHelper extends HelperBase {
 
     public static final MediaType JSON = MediaType.get("application/json");
+    OkHttpClient client;
 
     public DeveloperMailHelper(ApplicationManager manager) {
         super(manager);
