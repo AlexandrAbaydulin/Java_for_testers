@@ -1,9 +1,10 @@
-package ru.stqa.mantis.tests;
+package ru.stqa.mantis.tests.user;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.stqa.mantis.common.CommonFunctions;
 import ru.stqa.mantis.model.UserData;
+import ru.stqa.mantis.tests.TestBase;
 
 import java.time.Duration;
 
