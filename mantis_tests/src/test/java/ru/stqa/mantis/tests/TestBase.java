@@ -1,15 +1,11 @@
-package ru.stqa.addressbook.tests;
+package ru.stqa.mantis.tests;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import ru.stqa.addressbook.manager.ApplicationManager;
+import ru.stqa.mantis.manager.ApplicationManager;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Properties;
-import java.util.Random;
 
 public class TestBase {
 
@@ -23,17 +19,5 @@ public class TestBase {
             app = new ApplicationManager();
             app.init(System.getProperty("browser", "firefox"), properties);
         }
-    }
-
-    @AfterEach
-    void checkDataBaseConsistency() {
-        app.jdbc().checkConsistency();
-    }
-
-    public static String randomFile(String dir) {
-        var fileNames = new File(dir).list();
-        var rnd = new Random();
-        var index = rnd.nextInt(fileNames.length);
-        return Paths.get(dir, fileNames[index]).toString();
     }
 }

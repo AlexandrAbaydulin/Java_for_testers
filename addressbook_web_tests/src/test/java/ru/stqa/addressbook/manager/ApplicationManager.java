@@ -18,8 +18,10 @@ public class ApplicationManager {
     private GroupHelper groups;
     private ContactHelper contacts;
     private JdbcHelper jdbc;
-    private Properties properties;
     private HibernateHelper hbm;
+
+    private Properties properties;
+
 
     public void init(String browser, Properties properties) {
         this.properties = properties;
