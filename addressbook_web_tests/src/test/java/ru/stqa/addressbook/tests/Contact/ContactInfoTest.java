@@ -2,12 +2,9 @@ package ru.stqa.addressbook.tests.Contact;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.tests.TestBase;
 
 import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ContactInfoTest extends TestBase {
 

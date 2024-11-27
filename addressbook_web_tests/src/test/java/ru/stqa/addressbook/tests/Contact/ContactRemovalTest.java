@@ -1,8 +1,10 @@
 package ru.stqa.addressbook.tests.Contact;
 
 import io.qameta.allure.Allure;
+import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.runners.MethodSorters;
 import ru.stqa.addressbook.common.CommonFunctions;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.GroupData;
@@ -11,9 +13,6 @@ import ru.stqa.addressbook.tests.TestBase;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
-
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ContactRemovalTest extends TestBase {

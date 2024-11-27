@@ -15,6 +15,13 @@ public class TestBase {
 
     protected static ApplicationManager app;
 
+    public static String randomFile(String dir) {
+        var fileNames = new File(dir).list();
+        var rnd = new Random();
+        var index = rnd.nextInt(fileNames.length);
+        return Paths.get(dir, fileNames[index]).toString();
+    }
+
     @BeforeEach
     public void setUp() throws IOException {
         if (app == null) {
@@ -28,12 +35,5 @@ public class TestBase {
     @AfterEach
     void checkDataBaseConsistency() {
         app.jdbc().checkConsistency();
-    }
-
-    public static String randomFile(String dir) {
-        var fileNames = new File(dir).list();
-        var rnd = new Random();
-        var index = rnd.nextInt(fileNames.length);
-        return Paths.get(dir, fileNames[index]).toString();
     }
 }
