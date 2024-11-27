@@ -59,9 +59,9 @@ public class ContactCreationTest extends TestBase {
 //        app.contacts().createContact(contact);
 //        var newContacts = app.jdbc().getContactList();
         //Получение списка контактов с применением Hibernate
-        var oldContacts = app.hbm().getContactList();
+        var oldContacts = app.jdbc().getContactList();
         app.contacts().createContact(contact);
-        var newContacts = app.hbm().getContactList();
+        var newContacts = app.jdbc().getContactList();
 
         var extraContacts = newContacts.stream().filter(g -> !oldContacts.contains(g)).toList();
         var newId = extraContacts.get(0).id();

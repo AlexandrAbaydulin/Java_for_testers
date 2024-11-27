@@ -1,5 +1,6 @@
 package ru.stqa.addressbook.manager;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -18,6 +19,7 @@ public class ContactHelper extends HelperBase {
         super(manager);
     }
 
+    @Step
     public void createContact(ContactData contact) {
         initContactCreation();
         fillContactForm(contact);
@@ -25,6 +27,7 @@ public class ContactHelper extends HelperBase {
         returnToContactPage();
     }
 
+    @Step
     public void createContact(ContactData contact, GroupData group) {
         initContactCreation();
         fillContactForm(contact);
@@ -33,6 +36,7 @@ public class ContactHelper extends HelperBase {
         returnToContactPage();
     }
 
+    @Step
     public void removeContactFromGroup(ContactData contact, GroupData group) {
         returnToContactPage();
         selectRemoveGroup(group);
@@ -41,6 +45,7 @@ public class ContactHelper extends HelperBase {
         returnToContactPage();
     }
 
+    @Step
     public void addContactToGroup(ContactData contact, GroupData group) {
         returnToContactPage();
         selectContact(contact);
@@ -69,6 +74,7 @@ public class ContactHelper extends HelperBase {
         new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(group.id());
     }
 
+    @Step
     public void modifyContact(ContactData contact, ContactData modifiedContact, int index) {
         returnToContactPage();
         selectContact(contact);
@@ -86,18 +92,21 @@ public class ContactHelper extends HelperBase {
 //        returnToContactPage();
 //    }
 
+    @Step
     public void removeContact(ContactData contact) {
         selectContact(contact);
         removeSelectedContacts();
         returnToContactPage();
     }
 
+    @Step
     public void removeAllContact() {
         selectAllContact();
         removeSelectedContacts();
         returnToContactPage();
     }
 
+    @Step
     private void submitContactModification() {
         click(By.name("update"));
     }

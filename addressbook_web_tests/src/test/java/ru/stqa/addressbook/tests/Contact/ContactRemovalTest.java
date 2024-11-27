@@ -12,16 +12,17 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ContactRemovalTest extends TestBase {
 
 
     @Test
-    public void canRemoveContact() {
+    public void canRemoveContact1() {
         if (app.hbm().getContactCount() == 0) {
             app.hbm().createContact(new ContactData(
-                    "",
-                    "",
-                    "",
                     "",
                     "",
                     "",
@@ -81,7 +82,7 @@ public class ContactRemovalTest extends TestBase {
 //    }
 
     @Test
-    void canRemoveAllContactsAtOnce() {
+    void canRemoveContact2sAllAtOnce() {
         if (!app.contacts().isContactPresent()) {
             app.contacts().createContact(
                     new ContactData()
@@ -93,7 +94,7 @@ public class ContactRemovalTest extends TestBase {
     }
 
     @Test
-    void canRemoveContactFromGroup() {
+    void canRemoveContact3FromGroup() {
         Allure.step("Checking precondition", step -> {
             if (app.hbm().getGroupCount() == 0) {
                 app.hbm().createGroup(new GroupData()

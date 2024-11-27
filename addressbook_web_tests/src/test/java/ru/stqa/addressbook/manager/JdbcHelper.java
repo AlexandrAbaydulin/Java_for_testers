@@ -1,5 +1,6 @@
 package ru.stqa.addressbook.manager;
 
+import io.qameta.allure.Step;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.GroupData;
 
@@ -32,11 +33,12 @@ public class JdbcHelper extends HelperBase {
         return groups;
     }
 
+    @Step
     public List<ContactData> getContactList() {
         var contacts = new ArrayList<ContactData>();
         try (var conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
              var statement = conn.createStatement();
-             var result = statement.executeQuery("select id, firstname, middlename, lastname, nickname, company, title, address, home, email, homepage, bday, bmonth, byear, aday, amonth, ayear from addressbook")) {
+             var result = statement.executeQuery("select id, firstname, lastname, address, photo, home, mobile, work, phone2 from addressbook")) {
             //var result = statement.executeQuery("select id, firstname, lastname from addressbook")) {
 
             while (result.next()) {

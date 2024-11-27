@@ -67,11 +67,8 @@ public class HibernateHelper extends HelperBase {
                 record.home,
                 record.mobile,
                 record.work,
-                record.email,
                 record.photo,
-                record.phone2,
-                record.email2,
-                record.email3);
+                record.phone2);
     }
 
     private static ContactRecord convertContact(ContactData data) {
@@ -86,11 +83,8 @@ public class HibernateHelper extends HelperBase {
                 data.home(),
                 data.mobile(),
                 data.work(),
-                data.email(),
                 data.photo(),
-                data.secondary(),
-                data.email2(),
-                data.email3());
+                data.phone2());
     }
 
     @Step
@@ -100,6 +94,7 @@ public class HibernateHelper extends HelperBase {
         }));
     }
 
+    @Step
     public List<ContactData> getContactList() {
         return convertContactList(sessionFactory.fromSession(session -> {
             return session.createQuery("from ContactRecord", ContactRecord.class).list();
@@ -121,12 +116,14 @@ public class HibernateHelper extends HelperBase {
         });
     }
 
+    @Step
     public long getContactCount() {
         return sessionFactory.fromSession(session -> {
             return session.createQuery("select count (*) from ContactRecord", Long.class).getSingleResult();
         });
     }
 
+    @Step
     public void createContact(ContactData contactData) {
         sessionFactory.inSession(session -> {
             session.getTransaction().begin();
